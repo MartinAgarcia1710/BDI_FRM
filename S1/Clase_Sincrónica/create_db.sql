@@ -1,5 +1,16 @@
 -- Drop Database gestion_academica;
 
+-- Ejemplos de numeric y parámetros:
+
+-- numeric(8,2)
+-- 123456,78
+
+-- numeric(5,1) ** primer parámetro son la cantidad máxima de dígitos y el segundo cantidad de decimales (números atrás de la coma)
+-- 1235,5
+-- 4852,3
+
+
+
 Create Database gestion_academica;
 
 Create Type nivel_curso_enum As Enum ('Principiante', 'Intermedio', 'Avanzado');

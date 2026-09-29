@@ -19,3 +19,19 @@ Where id_instructor = 2
 1
 Delete From instructores
 Where id_instructor = 3
+
+
+
+Create table cosas2(
+    id serial,
+    num numeric(3,2)
+)
+
+insert into cosas2 (num) values(7.1225)
+
+select * from cosas2;
+
+select * from instructores;
+
+INSERT INTO instructores (nombre, email, fecha_registro, activo) VALUES
+('profe prueba', 'profe.prueba@academia.com', '2025-01-10 10:00:00', TRUE)
