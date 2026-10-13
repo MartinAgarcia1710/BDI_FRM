@@ -23,16 +23,38 @@ Select fn_promedio_estudiante(2) As promedio_alumno_2;
 
 
 
-
-
-
-
-
-
-
-
-
 -- Crear una función llamada "fn_buscar_estudiantes_por_curso" que reciba parte o el 
 -- nombre completo de un curso (p_nombre_curso VARCHAR) y retorne una tabla con:
 -- id_estudiante, nombre, email, fecha_inscripcion y calificacion de los alumnos 
 -- anotados en cursos coincidentes (usando búsqueda insensible a mayúsculas con ILIKE).
+
+Create Or Replace Function fn_buscar_estudiantes_por_curso(p_nombre_curso VarChar)
+Returns Table(
+    id_estudiante Int,
+    nombre_estudiante VarChar(120),
+    email_estudiante VarChar(150),
+    fecha_inscripcion Date,
+    curso VarChar(150),
+    calificacion Numeric(3, 1)
+)
+Language plpgsql
+As $$
+Begin 
+    Return Query 
+    Select 
+        e.id_estudiante,
+        e.nombre,
+        e.email,
+        ins.fecha_inscripcion,
+        c.nombre,
+        ins.calificacion   
+    From inscripciones ins
+    Join estudiantes e On e.id_estudiante = ins.estudiante_id
+    Join cursos c On c.id_curso = ins.curso_id
+    Where c.nombre Ilike '%' || p_nombre_curso || '%';
+End; 
+$$;
+
+
+-- LLamado a la función 
+Select * From fn_buscar_estudiantes_por_curso('a');
