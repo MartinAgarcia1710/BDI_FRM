@@ -4,7 +4,7 @@ Create Table vinos(
     codigo_vino VarChar(6) Primary Key,
     nombre VarChar(50) Not Null,
     cepa VarChar(50) Not Null,
-    cosecha Int Not Null Check (cosecha Between 1900 and Year(current_date)),
+    cosecha Int Not Null Check (cosecha Between 1900 and Extract(Year From Current_Date)::Int),
     precio Numeric(10,2) Check (precio >= 0)
 );
 
@@ -29,16 +29,16 @@ Create Table visitas(
 );
 
 Create Table visita_turista(
-    id_visita Int Not Null References visita (ID_visita),
+    id_visita Int Not Null References visitas (ID_visita),
     id_turista Int Not Null References turistas(ID_turista),
     Primary Key (id_visita, id_turista)
 );
 
 Create Table desgustaciones(
-    id_visita Int Not Null References visita (ID_visita),
+    id_visita Int Not Null References visitas (ID_visita),
     id_turista Int Not Null References turistas(ID_turista),
-    vino_codigo VarChar(6) References vino(codigo_vino),
-    cantidad_copas Int Not Null Check(copas > 0),
-    precio_cobrado Numeric(10,2) Check (precio_cobrado > 0)
+    vino_codigo VarChar(6) References vinos(codigo_vino),
+    cantidad_copas Int Not Null Check(cantidad_copas > 0),
+    precio_cobrado Numeric(10,2) Check (precio_cobrado > 0),
     Primary Key (id_visita, id_turista, vino_codigo)
-)
+);
